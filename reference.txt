@@ -1,0 +1,48 @@
+SN3218C
+
+Pimoroni makes two easy to use products to control LEDs, based on the 
+SN3218 IC:
+
+- PiGlow
+- SN3218 18-channel LED Driver
+
+The PiGlow is a ready-to-use PCB with 18 LEDs in 6 different colours 
+that you can stick on the GPIO connector of a Pi. Through the I2C port 
+you can switch the LEDs on or off by setting their intensities.
+
+The driver board is meant for people who want to build their own system.
+You will have to provide the LEDs and make all the connections yourself.
+From a driver software point of view the PiGlow and the driver board
+are the same thing.
+
+The C driver software has 4 main functions:
+
+- sn3218_open()
+- sn3218_close()
+- sn3218_set_led()
+- sn3218_set_all_leds()
+
+int sn3218_open(void);
+
+This functions opens the I2C port to the SN3218 and locks it, so other
+processes (programs) can not interfere.
+
+int sn3218_close(void);
+
+This functions unlocks and closes the I2C port.
+
+uint8_t sn3218_set_led(uint8_t ledno, uint8_t intensity);
+
+The set_led function sets the intensity level of a single LED.
+That LEDs are numbered from 1 to 18 and there are 256 intensity levels 
+to choose from (0 is off, 255 is maximum intensity).
+
+uint8_t sn3218_set__all_leds(uint8_t intensity);
+
+The set_all_leds function sets the intensity level of all 18 LEDs at the
+same time.
+
+Gamma intensities
+
+The array sn3218_gamma[SN3218_GAMMA] is a selection of 32 predefined
+intensity levels that you can use instead the 256 available levels.
